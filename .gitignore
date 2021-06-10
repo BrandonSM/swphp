@@ -1,0 +1,6 @@
+# ignore SQL
+*.sql
+
+# ignore original README
+README_orig.md
+
