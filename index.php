@@ -1,21 +1,21 @@
 <?php require_once ('./includes/header.php'); ?>
-<h1>Sweetwater</h1>
-<?php
+<h1>Sweetwater Comments Report</h1>
 
+<?php
     // Set the queries for the report
     echo "<h2>CANDY</h2>";
-    $query1 = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%candy%'";
-    $result1 = $conn->query($query1);
-    if($result1->num_rows > 0) {
+    $qCommentsForCandy = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%candy%'";
+    $resCandyComments = $conn->query($qCommentsForCandy);
+    if($resCandyComments->num_rows > 0) {
 
-        while($row1 = $result1->fetch_assoc()) {
-            $dateExploded = explode("Expected Ship Date: ", $row1["comments"]);
+        while($candyComment = $resCandyComments->fetch_assoc()) {
+            $dateExploded = explode("Expected Ship Date: ", $candyComment["comments"]);
             if(isset($dateExploded[1])) {
                 $newDate = date("Y-m-d", strtotime($dateExploded[1])); 
-                $strReplaced = str_replace("Expected Ship Date: " . $dateExploded[1], "", $row1["comments"]);
-                echo "orderid: " . $row1["orderid"]. " - Comment: " . $strReplaced . " - Expected Date: " . $newDate . "<br>";
+                $strReplaced = str_replace("Expected Ship Date: " . $dateExploded[1], "", $candyComment["comments"]);
+                echo "orderid: " . $candyComment["orderid"]. " - Comment: " . $strReplaced . " - Expected Date: " . $newDate . "<br>";
             } else {
-                echo "orderid: " . $row1["orderid"] . " - Comment: " . $row1["comments"] . "<br>";
+                echo "orderid: " . $candyComment["orderid"] . " - Comment: " . $candyComment["comments"] . "<br>";
             }
         }
 
@@ -25,12 +25,12 @@
 
     echo "<h2>CALL ME</h2>";
     // Set the queries for the report
-    $query2 = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%call me%' AND `comments` NOT LIKE '%Do not call%' AND `comments` NOT LIKE '%don%t call%' ORDER BY `orderid` ASC";
-    $result2 = $conn->query($query2);
-    if($result2->num_rows > 0) {
+    $qCommentsForCall = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%call me%' AND `comments` NOT LIKE '%Do not call%' AND `comments` NOT LIKE '%don%t call%' ORDER BY `orderid` ASC";
+    $resCallComments = $conn->query($qCommentsForCall);
+    if($resCallComments->num_rows > 0) {
 
-        while($row2 = $result2->fetch_assoc()) {
-            echo "orderid: " . $row2["orderid"]. " - Comment " . $row2["comments"] . "<br>";
+        while($callComment = $resCallComments->fetch_assoc()) {
+            echo "orderid: " . $callComment["orderid"]. " - Comment " . $callComment["comments"] . "<br>";
         }
 
     } else {
@@ -39,12 +39,12 @@
 
     echo "<h2>DONT CALL ME</h2>";
     // Set the queries for the report
-    $query3 = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%don%t call me%' OR `comments` LIKE '%Do not call%'";
-    $result3 = $conn->query($query3);
-    if($result3->num_rows > 0) {
+    $qCommentsForDontCall= "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%don%t call me%' OR `comments` LIKE '%Do not call%'";
+    $resDontCallComments = $conn->query($qCommentsForDontCall);
+    if($resDontCallComments->num_rows > 0) {
 
-        while($row3 = $result3->fetch_assoc()) {
-            echo "orderid: " . $row3["orderid"]. " - Comment " . $row3["comments"] . "<br>";
+        while($dontCallComment = $resDontCallComments->fetch_assoc()) {
+            echo "orderid: " . $dontCallComment["orderid"]. " - Comment " . $dontCallComment["comments"] . "<br>";
         }
 
     } else {
@@ -53,12 +53,12 @@
 
     echo "<h2>WHO REFERRED ME</h2>";
     // Set the queries for the report
-    $query4 = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%referred me%'";
-    $result4 = $conn->query($query4);
-    if($result4->num_rows > 0) {
+    $qCommentsForRefered = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%referred me%'";
+    $resReferredComments = $conn->query($qCommentsForRefered);
+    if($resReferredComments->num_rows > 0) {
 
-        while($row4 = $result4->fetch_assoc()) {
-            echo "orderid: " . $row4["orderid"]. " - Comment " . $row4["comments"] . "<br>";
+        while($referredComment = $resReferredComments->fetch_assoc()) {
+            echo "orderid: " . $referredComment["orderid"]. " - Comment " . $referredComment["comments"] . "<br>";
         }
 
     } else {
@@ -67,12 +67,12 @@
 
     echo "<h2>SIGNATURE REQUIREMENTS</h2>";
     // Set the queries for the report
-    $query5 = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%signature%'";
-    $result5 = $conn->query($query5);
-    if($result5->num_rows > 0) {
+    $qCommentsForSignature = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%signature%'";
+    $resSignatureComments = $conn->query($qCommentsForSignature);
+    if($resSignatureComments->num_rows > 0) {
 
-        while($row5 = $result5->fetch_assoc()) {
-            echo "orderid: " . $row5["orderid"]. " - Comment " . $row5["comments"] . "<br>";
+        while($signatureComment = $resSignatureComments->fetch_assoc()) {
+            echo "orderid: " . $signatureComment["orderid"]. " - Comment " . $signatureComment["comments"] . "<br>";
         }
 
     } else {
@@ -81,12 +81,12 @@
 
     echo "<h2>EVERYTHING ELSE</h2>";
     // Set the queries for the report
-    $query6 = "SELECT * FROM `sweetwater_test` WHERE `comments` NOT LIKE '%candy%' AND `comments` NOT LIKE '%call%' AND `comments` NOT LIKE '%signature%' AND `comments` NOT LIKE '%referred%'";
-    $result6 = $conn->query($query6);
-    if($result6->num_rows > 0) {
+    $qCommentsEverythingElse = "SELECT * FROM `sweetwater_test` WHERE `comments` NOT LIKE '%candy%' AND `comments` NOT LIKE '%call%' AND `comments` NOT LIKE '%signature%' AND `comments` NOT LIKE '%referred%'";
+    $resEverythingElse = $conn->query($qCommentsEverythingElse);
+    if($resEverythingElse->num_rows > 0) {
 
-        while($row6 = $result6->fetch_assoc()) {
-            echo "orderid: " . $row6["orderid"]. " - Comment " . $row6["comments"] . "<br>";
+        while($otherComment = $resEverythingElse->fetch_assoc()) {
+            echo "orderid: " . $otherComment["orderid"]. " - Comment " . $otherComment["comments"] . "<br>";
         }
 
     } else {
