@@ -7,3 +7,4 @@
     <link rel="stylesheet" href="./sweetwater.css" type="text/css">
 </head>
 <body>
+<?php require ('./includes/nav.php'); ?>

@@ -1,4 +1,5 @@
 <?php require_once ('./includes/header.php'); ?>
+<?php require_once ('./includes/functions.php'); ?>
 <h1>Sweetwater Comments Report</h1>
 <h2 class="my-4">Candy Comments</h2>
     <?php
@@ -16,20 +17,9 @@
                 <div class="card"> 
                     <?php echo "#" . $candyComment["orderid"]; ?>
                     <div class="card-body">
-                        <?php  
-                        $expectedDate = explode("Expected Ship Date: ", $candyComment["comments"]);
-                        if(isset($expectedDate[1])) {
-                            $newDate = date("Y-m-d", strtotime($expectedDate[1])); 
-                            $strReplaced = str_replace("Expected Ship Date: " . $expectedDate[1], "", $candyComment["comments"]);
-                        ?>
-                        <span><?php echo $strReplaced . "<br/><br/><em>Expected Date: " . $newDate . "</em>"; ?></span>
-                        <?php 
-                        } else {
-                        ?> 
-                        <span><?php echo $candyComment["comments"]; ?></span>
-                        <?php
-                        } 
-                        ?>
+                    <?php  
+                        formatComment($candyComment["comments"]);
+                    ?>
                     </div>
                 </div>
                 <?php
@@ -38,7 +28,7 @@
             echo "0 results";
         }
     ?>
-<h2 class="my-4">Call Me comments</h2>
+<h2 class="my-4" id="call-me">Call Me comments</h2>
     <?php
         $qCommentsForCall = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%call me%' AND `comments` NOT LIKE '%Do not call%' AND `comments` NOT LIKE '%don%t call%'" ;
         $resCallComments = $conn->query($qCommentsForCall);
@@ -50,19 +40,8 @@
                 <?php echo "#" . $callComment["orderid"] ?>
                     <div class="card-body">
                     <?php  
-                        $expectedDate = explode("Expected Ship Date: ", $callComment["comments"]);
-                        if(isset($expectedDate[1])) {
-                            $newDate = date("Y-m-d", strtotime($expectedDate[1])); 
-                            $strReplaced = str_replace("Expected Ship Date: " . $expectedDate[1], "", $callComment["comments"]);
-                        ?>
-                        <span><?php echo $strReplaced . "<br/><br/><em>Expected Date: " . $newDate . "</em>"; ?></span>
-                        <?php 
-                        } else {
-                        ?> 
-                        <span><?php echo $callComment["comments"]; ?></span>
-                        <?php
-                        } 
-                        ?>
+                        formatComment($callComment["comments"]);
+                    ?>
                     </div>
                 </div>
             <?php 
@@ -72,7 +51,7 @@
             echo "0 results";
         }
         ?>
-<h2 class="my-4">Don't Call Me comments</h2>
+<h2 class="my-4" id="dont-call-me">Don't Call Me comments</h2>
     <?php
         $qCommentsForDontCall= "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%don%t call me%' OR `comments` LIKE '%Do not call%'";
         $resDontCallComments = $conn->query($qCommentsForDontCall);
@@ -83,19 +62,8 @@
                 <?php echo "#" . $dontCallComment["orderid"] ?>
                     <div class="card-body">
                     <?php  
-                        $expectedDate = explode("Expected Ship Date: ", $dontCallComment["comments"]);
-                        if(isset($expectedDate[1])) {
-                            $newDate = date("Y-m-d", strtotime($expectedDate[1])); 
-                            $strReplaced = str_replace("Expected Ship Date: " . $expectedDate[1], "", $dontCallComment["comments"]);
-                        ?>
-                        <span><?php echo $strReplaced . "<br/><br/><em>Expected Date: " . $newDate . "</em>"; ?></span>
-                        <?php 
-                        } else {
-                        ?> 
-                        <span><?php echo $dontCallComment["comments"]; ?></span>
-                        <?php
-                        } 
-                        ?>
+                        formatComment($dontCallComment["comments"]);
+                    ?>
                     </div>
                 </div>
                 <?php
@@ -105,7 +73,7 @@
             echo "0 results";
         }
     ?>
-<h2 class="my-4">Who Referred Me comments</h2>
+<h2 class="my-4" id="who-referred-me">Who Referred Me comments</h2>
     <?php 
         $qCommentsForRefered = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%referred me%'";
         $resReferredComments = $conn->query($qCommentsForRefered);
@@ -116,19 +84,8 @@
                     <?php echo "#" . $referredComment["orderid"] ?>
                     <div class="card-body">
                     <?php  
-                        $expectedDate = explode("Expected Ship Date: ", $referredComment["comments"]);
-                        if(isset($expectedDate[1])) {
-                            $newDate = date("Y-m-d", strtotime($expectedDate[1])); 
-                            $strReplaced = str_replace("Expected Ship Date: " . $expectedDate[1], "", $referredComment["comments"]);
-                        ?>
-                        <span><?php echo $strReplaced . "<br/><br/><em>Expected Date: " . $newDate . "</em>"; ?></span>
-                        <?php 
-                        } else {
-                        ?> 
-                        <span><?php echo $referredComment["comments"]; ?></span>
-                        <?php
-                        } 
-                        ?>
+                        formatComment($referredComment["comments"]);
+                    ?>
                     </div>
                 </div>
                 <?php 
@@ -138,7 +95,7 @@
             echo "0 results";
         }
     ?>
-<h2 class="my-4">Signature Requirements comments</h2>
+<h2 class="my-4" id="signature-requirements">Signature Requirements comments</h2>
     <?php 
         $qCommentsForSignature = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%signature%'";
         $resSignatureComments = $conn->query($qCommentsForSignature);
@@ -150,19 +107,8 @@
                     <?php echo "#" . $signatureComment["orderid"] ?>
                     <div class="card-body">
                     <?php  
-                        $expectedDate = explode("Expected Ship Date: ", $signatureComment["comments"]);
-                        if(isset($expectedDate[1])) {
-                            $newDate = date("Y-m-d", strtotime($expectedDate[1])); 
-                            $strReplaced = str_replace("Expected Ship Date: " . $expectedDate[1], "", $signatureComment["comments"]);
-                        ?>
-                        <span><?php echo $strReplaced . "<br/><br/><em>Expected Date: " . $newDate . "</em>"; ?></span>
-                        <?php 
-                        } else {
-                        ?> 
-                        <span><?php echo $signatureComment["comments"]; ?></span>
-                        <?php
-                        } 
-                        ?>
+                        formatComment($signatureComment["comments"]);
+                    ?>
                     </div>
                 </div>
                 <?php 
@@ -171,7 +117,7 @@
             echo "0 results";
         }
     ?>
-<h2 class="my-4">Everything Else comments</h2>
+<h2 class="my-4" id="everything-else">Everything Else comments</h2>
     <?php
         $qCommentsEverythingElse = "SELECT * FROM `sweetwater_test` WHERE `comments` NOT LIKE '%candy%' AND `comments` NOT LIKE '%call%' AND `comments` NOT LIKE '%signature%' AND `comments` NOT LIKE '%referred%' AND `comments` NOT REGEXP '(" . implode("|",$candyTerms) . ")'";
         $resEverythingElse = $conn->query($qCommentsEverythingElse);
@@ -180,22 +126,11 @@
             while($otherComment = $resEverythingElse->fetch_assoc()) {
                 ?>
                 <div class="card">
-                    <?php echo $otherComment["orderid"] ?>
+                    <?php echo "#" . $otherComment["orderid"] ?>
                     <div class="card-body">
                     <?php  
-                        $expectedDate = explode("Expected Ship Date: ", $otherComment["comments"]);
-                        if(isset($expectedDate[1])) {
-                            $newDate = date("Y-m-d", strtotime($expectedDate[1])); 
-                            $strReplaced = str_replace("Expected Ship Date: " . $expectedDate[1], "", $otherComment["comments"]);
-                        ?>
-                        <span><?php echo $strReplaced . "<br/><br/><em>Expected Date: " . $newDate . "</em>"; ?></span>
-                        <?php 
-                        } else {
-                        ?> 
-                        <span><?php echo $otherComment["comments"]; ?></span>
-                        <?php
-                        } 
-                        ?>
+                        formatComment($otherComment["comments"]);
+                    ?>
                     </div>
                 </div>
                 <?php
