@@ -1,5 +1,5 @@
 <?php error_reporting(E_ALL);?>
-<?php require ('./includes/conn.php'); ?>
+<?php require_once ('./includes/conn.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,4 +7,4 @@
     <link rel="stylesheet" href="./sweetwater.css" type="text/css">
 </head>
 <body>
-<?php require ('./includes/nav.php'); ?>
+<?php require_once ('./includes/nav.php'); ?>

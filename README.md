@@ -2,7 +2,9 @@
 
 ## Instructions
 
-1. setup local db
-2. import SQL file
-3. clone repository
-4. setup MAMP to run the index.php of the repo
+1. Setup MAMP (PHP/MySQL) server
+2. Create local db
+3. import SQL file
+4. clone repository
+5. Start MAMP server on the repository
+
