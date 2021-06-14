@@ -4,7 +4,12 @@
 <?php
     // Set the queries for the report
     echo "<h2>CANDY</h2>";
-    $qCommentsForCandy = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%candy%'";
+    $candyTerms = [
+        'candy',
+        'tootsie',
+        'smarties'
+    ];
+    $qCommentsForCandy = "SELECT * FROM `sweetwater_test` WHERE `comments` REGEXP '(" . implode("|",$candyTerms) . ")'";
     $resCandyComments = $conn->query($qCommentsForCandy);
     if($resCandyComments->num_rows > 0) {
 
@@ -25,7 +30,7 @@
 
     echo "<h2>CALL ME</h2>";
     // Set the queries for the report
-    $qCommentsForCall = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%call me%' AND `comments` NOT LIKE '%Do not call%' AND `comments` NOT LIKE '%don%t call%' ORDER BY `orderid` ASC";
+    $qCommentsForCall = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%call me%' AND `comments` NOT LIKE '%Do not call%' AND `comments` NOT LIKE '%don%t call%'" ;
     $resCallComments = $conn->query($qCommentsForCall);
     if($resCallComments->num_rows > 0) {
 
@@ -81,7 +86,7 @@
 
     echo "<h2>EVERYTHING ELSE</h2>";
     // Set the queries for the report
-    $qCommentsEverythingElse = "SELECT * FROM `sweetwater_test` WHERE `comments` NOT LIKE '%candy%' AND `comments` NOT LIKE '%call%' AND `comments` NOT LIKE '%signature%' AND `comments` NOT LIKE '%referred%'";
+    $qCommentsEverythingElse = "SELECT * FROM `sweetwater_test` WHERE `comments` NOT LIKE '%candy%' AND `comments` NOT LIKE '%call%' AND `comments` NOT LIKE '%signature%' AND `comments` NOT LIKE '%referred%' AND `comments` NOT REGEXP '(" . implode("|",$candyTerms) . ")'";
     $resEverythingElse = $conn->query($qCommentsEverythingElse);
     if($resEverythingElse->num_rows > 0) {
 
