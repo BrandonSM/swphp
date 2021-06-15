@@ -1,7 +1,7 @@
 <?php require_once ('./includes/header.php'); ?>
 <?php require_once ('./includes/functions.php'); ?>
 <h1>Sweetwater Comments Report</h1>
-<h2 class="my-4">Candy Comments</h2>
+<h2 class="my-4">Candy Comments (<a href="#top">back to top</a>)</h2>
     <?php
         $candyTerms = [
             'candy',
@@ -13,7 +13,6 @@
         if($resCandyComments->num_rows > 0) {
 
             while($candyComment = $resCandyComments->fetch_assoc()) { ?>
-
                 <div class="card"> 
                     <?php echo "#" . $candyComment["orderid"]; ?>
                     <div class="card-body">
@@ -28,7 +27,7 @@
             echo "0 results";
         }
     ?>
-<h2 class="my-4" id="call-me">Call Me comments</h2>
+<h2 class="my-4" id="call-me">Call Me comments (<a href="#top">back to top</a>)</h2>
     <?php
         $qCommentsForCall = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%call me%' AND `comments` NOT LIKE '%Do not call%' AND `comments` NOT LIKE '%don%t call%'" ;
         $resCallComments = $conn->query($qCommentsForCall);
@@ -51,11 +50,12 @@
             echo "0 results";
         }
         ?>
-<h2 class="my-4" id="dont-call-me">Don't Call Me comments</h2>
+<h2 class="my-4" id="dont-call-me">Don't Call Me comments (<a href="#top">back to top</a>)</h2>
     <?php
         $qCommentsForDontCall= "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%don%t call me%' OR `comments` LIKE '%Do not call%'";
         $resDontCallComments = $conn->query($qCommentsForDontCall);
         if($resDontCallComments->num_rows > 0) {
+            
             while($dontCallComment = $resDontCallComments->fetch_assoc()) {
                 ?>
                 <div class="card">
@@ -73,7 +73,7 @@
             echo "0 results";
         }
     ?>
-<h2 class="my-4" id="who-referred-me">Who Referred Me comments</h2>
+<h2 class="my-4" id="who-referred-me">Who Referred Me comments (<a href="#top">back to top</a>)</h2>
     <?php 
         $qCommentsForRefered = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%referred me%'";
         $resReferredComments = $conn->query($qCommentsForRefered);
@@ -95,7 +95,7 @@
             echo "0 results";
         }
     ?>
-<h2 class="my-4" id="signature-requirements">Signature Requirements comments</h2>
+<h2 class="my-4" id="signature-requirements">Signature Requirements comments (<a href="#top">back to top</a>)</h2>
     <?php 
         $qCommentsForSignature = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%signature%'";
         $resSignatureComments = $conn->query($qCommentsForSignature);
@@ -113,11 +113,12 @@
                 </div>
                 <?php 
             }
+
         } else {
             echo "0 results";
         }
     ?>
-<h2 class="my-4" id="everything-else">Everything Else comments</h2>
+<h2 class="my-4" id="everything-else">Everything Else comments (<a href="#top">back to top</a>)</h2>
     <?php
         $qCommentsEverythingElse = "SELECT * FROM `sweetwater_test` WHERE `comments` NOT LIKE '%candy%' AND `comments` NOT LIKE '%call%' AND `comments` NOT LIKE '%signature%' AND `comments` NOT LIKE '%referred%' AND `comments` NOT REGEXP '(" . implode("|",$candyTerms) . ")'";
         $resEverythingElse = $conn->query($qCommentsEverythingElse);
