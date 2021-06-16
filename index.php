@@ -29,7 +29,7 @@
     ?>
 <h2 class="my-4" id="call-me">Call Me comments (<a href="#top">back to top</a>)</h2>
     <?php
-        $qCommentsForCall = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%call me%' AND `comments` NOT LIKE '%Do not call%' AND `comments` NOT LIKE '%don%t call%'" ;
+        $qCommentsForCall = "SELECT * FROM `sweetwater_test` WHERE `comments` LIKE '%call me%' OR `comments` REGEXP '[0-9]{10}' AND `comments` NOT LIKE '%Do not call%' AND `comments` NOT LIKE '%don%t call%'" ;
         $resCallComments = $conn->query($qCommentsForCall);
         if($resCallComments->num_rows > 0) {
 
@@ -120,7 +120,7 @@
     ?>
 <h2 class="my-4" id="everything-else">Everything Else comments (<a href="#top">back to top</a>)</h2>
     <?php
-        $qCommentsEverythingElse = "SELECT * FROM `sweetwater_test` WHERE `comments` NOT LIKE '%candy%' AND `comments` NOT LIKE '%call%' AND `comments` NOT LIKE '%signature%' AND `comments` NOT LIKE '%referred%' AND `comments` NOT REGEXP '(" . implode("|",$candyTerms) . ")'";
+        $qCommentsEverythingElse = "SELECT * FROM `sweetwater_test` WHERE `comments` NOT LIKE '%candy%' AND `comments` NOT LIKE '%call%' AND `comments` NOT LIKE '%signature%' AND `comments` NOT LIKE '%referred%' AND `comments` NOT REGEXP '(" . implode("|",$candyTerms) . ")' AND `comments` NOT REGEXP '[0-9]{10}'";
         $resEverythingElse = $conn->query($qCommentsEverythingElse);
         if($resEverythingElse->num_rows > 0) {
 
