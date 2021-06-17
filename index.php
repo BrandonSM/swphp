@@ -16,9 +16,7 @@
                 <div class="card"> 
                     <?php echo "#" . $candyComment["orderid"]; ?>
                     <div class="card-body">
-                    <?php  
-                        formatComment($candyComment["comments"]);
-                    ?>
+                    <?php echo formatComment($candyComment["comments"]); ?>
                     </div>
                 </div>
                 <?php
@@ -38,9 +36,7 @@
                 <div class="card">
                 <?php echo "#" . $callComment["orderid"] ?>
                     <div class="card-body">
-                    <?php  
-                        formatComment($callComment["comments"]);
-                    ?>
+                    <?php echo formatComment($callComment["comments"]); ?>
                     </div>
                 </div>
             <?php 
@@ -61,9 +57,7 @@
                 <div class="card">
                 <?php echo "#" . $dontCallComment["orderid"] ?>
                     <div class="card-body">
-                    <?php  
-                        formatComment($dontCallComment["comments"]);
-                    ?>
+                    <?php echo formatComment($dontCallComment["comments"]); ?>
                     </div>
                 </div>
                 <?php
@@ -83,9 +77,7 @@
                 <div class="card">
                     <?php echo "#" . $referredComment["orderid"] ?>
                     <div class="card-body">
-                    <?php  
-                        formatComment($referredComment["comments"]);
-                    ?>
+                    <?php echo formatComment($referredComment["comments"]); ?>
                     </div>
                 </div>
                 <?php 
@@ -106,9 +98,7 @@
                 <div class="card">
                     <?php echo "#" . $signatureComment["orderid"] ?>
                     <div class="card-body">
-                    <?php  
-                        formatComment($signatureComment["comments"]);
-                    ?>
+                    <?php echo formatComment($signatureComment["comments"]); ?>
                     </div>
                 </div>
                 <?php 
@@ -129,9 +119,7 @@
                 <div class="card">
                     <?php echo "#" . $otherComment["orderid"] ?>
                     <div class="card-body">
-                    <?php  
-                        formatComment($otherComment["comments"]);
-                    ?>
+                    <?php echo formatComment($otherComment["comments"]); ?>
                     </div>
                 </div>
                 <?php

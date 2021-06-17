@@ -4,7 +4,7 @@
         return (bool)strtotime($dateString);
     }
 
-    // Format the Expected Ship Date
+    // Extract and format the Expected Ship Date from the comment
     function formatShipDate($dateString) {
         $formattedShipDate = date("Y-m-d", strtotime($dateString)); 
         return $formattedShipDate;
@@ -12,12 +12,9 @@
 
     // Format the Comment and extract the Ship Date
     function formatComment($comment) {
-        $expectedDate = substr($comment, strpos($comment,":")+1,9);
-        if(checkIsValidDate($expectedDate)) {
-            $strReplaced = str_replace("Expected Ship Date:" . $expectedDate, "", $comment);
-            echo $strReplaced . "<br/><br/><em>Expected Date: " . formatShipDate($expectedDate) . "</em>";
+            return $strReplaced . "<br/><br/><em>Expected Ship Date: " . extractShipDate($comment) . "</em>";
         } else {
-            echo $comment;
+            return $comment;
         }
     }
 
